@@ -18,23 +18,34 @@ public class BookController {
 	@Autowired
 	BookService bookservice; 
 	
+	
+	@RequestMapping("/books")
+	public String index(Model model) {
+		List<Book> bookListy = bookservice.allBooks(); 
+		model.addAttribute("bookListy", bookListy);
+
+//		List<Book> books = bookservice.allBooks();
+//	    model.addAttribute("books", books);
+//		model.addAttribute("book", book); 
+		
+		return "booklist.jsp";
+	}
+
+
 	@RequestMapping("/books/{bookId}") 
 	public String index(Model model, @PathVariable("bookId") Long bookId) {
 		
-//		System.out.println("bookId: " + bookId); 
-		
 		Book book = bookservice.findBook(bookId); 
+		model.addAttribute("book", book);  
+		 
 		
-//		System.out.println("book: " + book); 
+//		List<Book> bookListy = bookservice.allBooks(); 
+//		model.addAttribute("bookListy", bookListy); 
 		
-		List<Book> bookListy = bookservice.allBooks(); 
-		
-		
-		model.addAttribute("book", book); 
-		model.addAttribute("bookListy", bookListy); 
-		
-		
-		return "index.jsp"; 
+		return "bookprofile.jsp"; 
 	}
 
+
+	
+// end of methods
 }
